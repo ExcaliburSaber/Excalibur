@@ -1,0 +1,62 @@
+.secondNav{
+	background-color: #616161;
+	height: 60px;
+	width: 100%;
+}
+.secondNav ul{
+	width: 60%;
+	margin: 0 auto;
+}
+.secondNav ul li{
+	float: left;
+	list-style-type: none;
+	line-height: 60px;
+	text-align: center;
+	font-size: 15px;
+	
+}
+.secondNav ul li a{
+	text-decoration: none;
+	color: white;
+	letter-spacing: 3px;
+	margin:auto 10px;
+}
+.secondNav ul li:hover{
+	float: left;
+	list-style-type: none;
+	line-height: 60px;
+	text-align: center;
+	font-size: 15px;
+	background: #545454;
+}
+#main{
+	position: relative;
+}
+.box{
+	padding:15px 0 0 15px;
+	float: left;
+}
+.pic{
+	padding: 10px;
+	border:1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #ccc;
+}
+.pic img{
+	width: 230px;
+	height: auto;
+}
+.page{
+	position: absolute;
+	left: 0px;
+	bottom: -4500px;
+	margin-bottom: 0px;
+}
+.page ul{
+	width: 1000px;
+}
+.page ul li{
+	float: left;
+	list-style-type: none;
+	font-size: 20px;
+}
