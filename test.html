@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+ <html data-ng-app="App">
+ <head>
+     
+ </head>
+ <body data-ng-controller="AddStyleCtrl">
+ 
+     <div>Choose Tags</div>    
+     <div>
+       <div>You have choosen:</div>
+        <hr>
+        <label data-ng-repeat="selectedTag in selectedTags">
+            (({{selectedTag}}))
+        </label>
+        <hr>
+        <div data-ng-repeat="category in tagcategories">
+            <div>{{ category.name }}</div>
+             <div data-ng-repeat="tag in category.tags">
+                <div>
+                    <input type="checkbox" id={{tag.id}} name="{{tag.name}}" ng-checked="isSelected(tag.id)" ng-click="updateSelection($event,tag.id)">
+                    {{ tag.name }}
+                </div>
+            </div>
+             <hr>
+        </div>
+    </div>
+
+	<pre>{{selected}}</pre>
+ <pre>{{selectedTags}}</pre>
+
+<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+var iApp = angular.module("App", []);
+iApp.controller('AddStyleCtrl', function($scope)
+ {
+     $scope.tagcategories = [
+        {
+            id: 1,
+            name: 'Color',
+            tags: [
+                {
+                   id:1,
+                    name:'color1'
+                },
+                {
+                    id:2,
+                    name:'color2'
+                },
+                {
+                    id:3,
+                    name:'color3'
+                },
+                {
+                    id:4,
+                    name:'color4'
+                },
+            ]
+        },
+         {
+            id:2,
+             name:'Cat',
+            tags:[
+                 {
+                     id:5,
+                    name:'cat1'
+                 },
+                 {
+                    id:6,
+                     name:'cat2'
+                 },
+            ]
+        },
+        {
+             id:3,
+            name:'Scenario',
+             tags:[
+                {
+                     id:7,
+                    name:'Home'
+                },
+                {
+                     id:8,
+                    name:'Work'
+                },
+            ]
+         }
+     ];
+ 
+     $scope.selected = [];
+     $scope.selectedTags = [];
+
+     var updateSelected = function(action,id,name){
+        if(action == 'add' && $scope.selected.indexOf(id) == -1){
+            $scope.selected.push(id);
+             $scope.selectedTags.push(name);
+        }
+        if(action == 'remove' && $scope.selected.indexOf(id)!=-1){
+             var idx = $scope.selected.indexOf(id);
+             $scope.selected.splice(idx,1);
+             $scope.selectedTags.splice(idx,1);
+         }
+     }
+ 
+    $scope.updateSelection = function($event, id){
+        var checkbox = $event.target;
+       var action = (checkbox.checked?'add':'remove');
+        updateSelected(action,id,checkbox.name);
+    }
+
+    $scope.isSelected = function(id){
+        return $scope.selected.indexOf(id)>=0;
+    }
+    console.log($scope.selected);
+ });
+</script>
+</body>
+</html>

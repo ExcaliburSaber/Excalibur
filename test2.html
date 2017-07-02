@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="MyCtrl">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()"
+                    />
+                </th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="e in entities" ng-class="getSelectedClass(e.id)">
+                <td>
+                    <input type="checkbox" name="selected" ng-checked="isSelected(e.id)" ng-click="updateSelection($event, e.id)"/>
+                </td>
+                <td>{{e.title}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>{{selected}}</div>
+</div>
+
+<script src="https://cdn.bootcss.com/angular.js/1.6.4/angular.min.js"></script>
+<script type="text/javascript">
+var myApp = angular.module('myApp', []);
+myApp.controller("MyCtrl",function ($scope) {
+    $scope.entities = [{
+        "title": "foo",
+        "id": 1
+    }, {
+        "title": "bar",
+        "id": 2
+    }, {
+        "title": "baz",
+        "id": 3
+    }];
+    $scope.selected = [];
+    var updateSelected = function (action, id) {
+        if (action == 'add' & $scope.selected.indexOf(id) == -1) $scope.selected.push(id);
+        if (action == 'remove' && $scope.selected.indexOf(id) != -1) $scope.selected.splice($scope.selected.indexOf(id), 1);
+    }
+
+
+    $scope.updateSelection = function ($event, id) {
+        var checkbox = $event.target;
+        var action = (checkbox.checked ? 'add' : 'remove');
+        updateSelected(action, id);
+    };
+
+
+    $scope.selectAll = function ($event) {
+        var checkbox = $event.target;
+        var action = (checkbox.checked ? 'add' : 'remove');
+        for (var i = 0; i < $scope.entities.length; i++) {
+            var entity = $scope.entities[i];
+            updateSelected(action, entity.id);
+        }
+    };
+
+
+    $scope.getSelectedClass = function (entity) {
+        return $scope.isSelected(entity.id) ? 'selected' : '';
+    };
+
+
+    $scope.isSelected = function (id) {
+        return $scope.selected.indexOf(id) >= 0;
+    };
+
+
+    //something extra I couldn't resist adding :)
+    $scope.isSelectedAll = function () {
+        return $scope.selected.length === $scope.entities.length;
+    };
+}
+);
+
+</script>
+</body>
+</html>
